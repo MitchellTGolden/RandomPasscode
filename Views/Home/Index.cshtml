@@ -1,0 +1,16 @@
+﻿<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    @if (ViewBag.PassCodeNum != null)
+    {
+        <h3>Random passcode (passcode #@ViewBag.PassCodeNum)</h3>
+    }
+    else
+    {
+        <h3>Press Generate to Begin</h3>
+    }
+    <h3>@ViewBag.PassCode</h3>
+    <a class="btn btn-success" href="/">Generate</a>
+    <a class="btn btn-danger" href="/reset">Reset</a>
+
+
+</div>
