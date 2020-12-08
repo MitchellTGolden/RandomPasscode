@@ -12,9 +12,8 @@ namespace RandomPasscode.Controllers
 {
     public class HomeController : Controller
     {
-        public static string Main = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         public static int PassCodeNum = 0;
-        public static Random rand = new Random();
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -24,16 +23,19 @@ namespace RandomPasscode.Controllers
 
         public IActionResult Index()
         {
-            string PassCode = "";
-            for (int i = 0; i < 11; i++)
-            {
-                char r = Main[rand.Next(0, Main.Length)];
-                PassCode += r;
-            }
-            ViewBag.PassCode = PassCode;
+            Passcode Code = new Passcode();
+            ViewBag.PassCode = Code.CodePass;
             PassCodeNum += 1;
             ViewBag.PassCodeNum = PassCodeNum;
             return View("Index");
+        }
+
+        [HttpGet("/ajax")]
+        public IActionResult Ajax(){
+            Console.WriteLine("Made it to the Ajax route");
+            Passcode code = new Passcode();
+            PassCodeNum ++;
+            return Json(new {passcode=code.CodePass,num=PassCodeNum});
         }
         [HttpGet("reset")]
         public IActionResult Reset()
